@@ -41,12 +41,12 @@ class MainPage extends StatelessWidget {
         }
         else {
           return Builder(
-            builder: (context) => ChangeNotifierProvider (
-              create: (context) => GoogleSignInProvider(),
-              child: MaterialApp(
-                home: SignUpPage(),
+              builder: (context) => ChangeNotifierProvider (
+                  create: (context) => GoogleSignInProvider(),
+                  child: MaterialApp(
+                    home: SignUpPage(),
+                  )
               )
-            )
           );
         }
       },

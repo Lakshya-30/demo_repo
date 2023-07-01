@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:messaging_app/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:messaging_app/settings.dart';
 
-class UserProfilePage extends StatelessWidget {
-  UserProfilePage({super.key});
+class ContactProfilePage extends StatelessWidget {
+  final Contact contact;
+
+  ContactProfilePage({required this.contact});
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[400],
-        title: Text('Profile'),
+        title: Text('Contact Profile'),
+
         actions: [],
       ),
       body: Column(
@@ -23,7 +23,7 @@ class UserProfilePage extends StatelessWidget {
             leading: Icon(Icons.person
             ),
             title: Text(
-              'Name:  '+user.displayName!,
+                'Name: ${contact.name}',
               style:  TextStyle(color: Colors.black, fontSize: 17),
             ),
 
@@ -33,27 +33,32 @@ class UserProfilePage extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.email),
             title: Text(
-              'Email:  '+user.email!,
+            'Email: ${contact.email}',
               style: TextStyle(color: Colors.black, fontSize: 15),
-          ),
+            ),
           ),
 
           Divider(height: 0.5),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {
-              // Navigate to Settings page
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SettingsPage()),
-              );
-            },
-          ),
-          Divider(height: 0.5),
+
+
         ],
       ),
     );
   }
 }
+class Contact {
+  final String id;
+  final String name;
+  final String email;
 
+  Contact({required this.id, required this.name, required this.email});
+
+  factory Contact.fromSnapshot(DocumentSnapshot snapshot) {
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    return Contact(
+      id: snapshot.id,
+      name: data['name'],
+      email: data['email'],
+    );
+  }
+}
