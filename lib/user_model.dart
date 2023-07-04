@@ -1,43 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
-  final String username;
-  final String uid;
-  final String profileImageUrl;
-  final bool active;
-  final int lastSeen;
-  final String phoneNumber;
-  final List<String> groupId;
+  final String name;
+  final String email;
+  final String profilePic;
+  final String about;
+  final DateTime timeCreated;
+  final DateTime lastSeen;
 
   UserModel({
-    required this.username,
-    required this.uid,
-    required this.profileImageUrl,
-    required this.active,
+    required this.name,
+    required this.email,
+    required this.profilePic,
+    required this.about,
+    required this.timeCreated,
     required this.lastSeen,
-    required this.phoneNumber,
-    required this.groupId,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'username': username,
-      'uid': uid,
-      'profileImageUrl': profileImageUrl,
-      'active': active,
-      'lastSeen': lastSeen,
-      'phoneNumber': phoneNumber,
-      'groupId': groupId,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'about': about,
+    'profilePic': profilePic,
+    'email': email,
+    'timeCreated': timeCreated,
+    'lastSeen': lastSeen,
+  };
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      username: map['username'] ?? '',
-      uid: map['uid'] ?? '',
-      profileImageUrl: map['profileImageUrl'] ?? '',
-      active: map['active'] ?? false,
-      lastSeen: map['lastSeen'] ?? 0,
-      phoneNumber: map['phoneNumber'] ?? '',
-      groupId: List<String>.from(map['groupId']),
-    );
-  }
+  static UserModel fromJson(Map<String, dynamic> json) => UserModel(
+    name: json['name'],
+    email: json['email'],
+    profilePic: json['profilePic'],
+    about: json['about'],
+    timeCreated: (json['timeCreated'] as Timestamp).toDate(),
+    lastSeen: (json['lastSeen'] as Timestamp).toDate(),
+  );
 }

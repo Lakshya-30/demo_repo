@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:messaging_app/signup.dart';
+import 'package:messaging_app/google_login.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -40,7 +41,8 @@ class SettingsPage extends StatelessWidget {
             leading: Icon(Icons.logout),
             title: Text('Logout'),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage() ));
+              final provider = Provider.of<GoogleSignInProvider>(context, listen:false);
+              provider.logout();
               // Handle logout
             },
           ),

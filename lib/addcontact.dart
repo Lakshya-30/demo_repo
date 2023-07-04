@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -10,6 +11,7 @@ class _AddContactPageState extends State<AddContactPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +48,23 @@ class _AddContactPageState extends State<AddContactPage> {
                 },
               ),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     String name = _nameController.text;
                     String email = _emailController.text;
 
-                    FirebaseFirestore.instance.collection('contacts').add({
-                      'name': name,
-                      'email': email,
-                    });
-
+                    bool ex = await docExists(email);
+                    if(ex){
+                      await FirebaseFirestore.instance.collection('users').doc(user.email).collection('contacts')
+                      .doc(email).set({
+                        'name': name,
+                        'email': email,
+                        'lastContacted': DateTime.now(),
+                      });
+                    }
+                    else{
+                      print('Error!');
+                    }
                     Navigator.pop(context);
                   }
                 },
@@ -69,5 +78,19 @@ class _AddContactPageState extends State<AddContactPage> {
         ),
       ),
     );
+  }
+
+  Future<bool> docExists(String email) async{
+    DocumentSnapshot<Map<String,dynamic>> document = await FirebaseFirestore
+        .instance
+        .collection("users")
+        .doc(email)
+        .get();
+
+    if(document.exists){
+      return true;
+    } else{
+      return false;
+    }
   }
 }
