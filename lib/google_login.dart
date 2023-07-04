@@ -29,23 +29,34 @@ class GoogleSignInProvider extends ChangeNotifier {
   }
 
   Future logout() async{
+    saveLastSeen();
     await googleSignIn.disconnect();
     FirebaseAuth.instance.signOut();
   }
 
   Future<void> saveUser(GoogleSignInAccount googleUser) async{
-    FirebaseFirestore.instance.collection("users")
+    await FirebaseFirestore.instance.collection("users")
         .doc(googleUser.email)
         .set({
           "email" : googleUser.email,
           "name" : googleUser.displayName,
           "profilePic" : googleUser.photoUrl,
           'timeCreated': DateTime.now(),
+          'lastSeen': DateTime.now(),
+          "about" : "Hi! I love the messaging app",
         });
   }
 
+  Future saveLastSeen() async{
+    await FirebaseFirestore.instance.collection("users")
+        .doc(user.email)
+        .update({
+      "lastSeen" : DateTime.now(),
+    });
+  }
+
   Future<bool> docExists(String email) async{
-    DocumentSnapshot<Map<String,dynamic>> document = await FirebaseFirestore
+    DocumentSnapshot <Map<String,dynamic>> document = await FirebaseFirestore
         .instance
         .collection("users")
         .doc(email)
