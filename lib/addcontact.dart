@@ -69,8 +69,13 @@ class _AddContactPageState extends State<AddContactPage> {
                   }
                 },
 
-                child: Text('Save',
-                  selectionColor: Colors.deepPurple[400],
+                child: Text(
+                  'Save',
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepPurple[400],
+                  padding: EdgeInsets.symmetric(horizontal: 32.0),
                 ),
               ),
             ],

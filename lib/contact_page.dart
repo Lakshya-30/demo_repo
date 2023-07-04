@@ -12,12 +12,17 @@ class ContactPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple[400],
-        title: Text('Contacts'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Select Contact'),
+            ContactCount(),
+          ],
+        ),
 
       ),
       body: Column(
         children: [
-          ContactCount(),
           Expanded(child: ContactList()),
         ],
       ),
@@ -37,6 +42,20 @@ class ContactPage extends StatelessWidget {
 }
 
 class ContactList extends StatelessWidget {
+
+
+  Future<void> deleteContact(String contactId) async {
+  try {
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(user.email)
+      .collection('contacts')
+      .doc(contactId)
+      .delete();
+  } catch (e) {
+  print('Failed to delete contact: $e');
+  }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +82,29 @@ class ContactList extends StatelessWidget {
               subtitle: Text(contacts[index].email),
               trailing: IconButton(
                 icon: Icon(Icons.delete),
-                onPressed: () async {
-                  await FirebaseFirestore.instance
-                      .collection('users')
-                      .doc(user.email)
-                      .collection('contacts')
-                      .doc(contacts[index].id)
-                      .delete();
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Delete Contact'),
+                      content: Text('Are you sure you want to delete this contact?'),
+                      actions: [
+                        TextButton(
+                          child: Text('Cancel'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
+                        TextButton(
+                          child: Text('Delete'),
+                          onPressed: () {
+                            deleteContact(contacts[index].id);
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
                 },
               ),
               onTap: () {
@@ -102,7 +137,9 @@ class ContactCount extends StatelessWidget {
 
         int count = snapshot.data!.docs.length;
 
-        return Text('Total contacts: $count');
+        return Text(' $count contacts',
+          style: TextStyle(fontSize: 15,),
+        );
       },
     );
   }

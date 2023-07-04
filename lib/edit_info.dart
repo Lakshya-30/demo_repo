@@ -33,6 +33,7 @@ class _EditInfoState extends State<EditInfo> {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.deepPurple[400],
           title: const Text('Edit Information'),
         ),
         body: FutureBuilder<UserModel>(
