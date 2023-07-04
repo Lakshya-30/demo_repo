@@ -13,7 +13,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.black87,
+    backgroundColor: Colors.white70,
     appBar: AppBar(
       title: Text('Signup'),
       backgroundColor: Colors.deepPurple[400],
@@ -33,9 +33,9 @@ class _SignUpPageState extends State<SignUpPage> {
           SizedBox(
             height: 40,
           ),
-          Text('Welcome!',style: TextStyle( color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold), ),
+          Text('Welcome!',style: TextStyle( color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold), ),
           SizedBox(height: 20,),
-          Text('Please login Using your Google account', style: TextStyle(color: Colors.white),),
+          Text('Please login Using your Google account', style: TextStyle(color: Colors.black),),
           SizedBox(
             height: 100,
           ),
