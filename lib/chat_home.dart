@@ -6,46 +6,70 @@ import 'package:messaging_app/contact_page.dart';
 import 'contact_profile.dart';
 import 'messaging_page.dart';
 
-class ChatHomePage extends StatelessWidget {
+class ChatHomePage extends StatefulWidget {
   const ChatHomePage({super.key});
 
+  @override
+  State<ChatHomePage> createState() => _ChatHomePageState();
+}
 
+class _ChatHomePageState extends State<ChatHomePage> with WidgetsBindingObserver, TickerProviderStateMixin{
+  late TabController tabBarController;
+  @override
+  void initState() {
+    super.initState();
+    tabBarController = TabController(length: 4, vsync: this);
+    WidgetsBinding.instance.addObserver(this);
+  }
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurple[400],
-        title: Text(
-          'ChatMe',
-          style: TextStyle(letterSpacing: 1),
-        ),
-        actions: [
-          IconButton(onPressed: () {},
-            icon: Icon(Icons.search),),
-        ],
-        bottom: TabBar(
-          tabs: [
-            Tab(text: 'Allchats'),
-            Tab(text: 'Personal'),
-            Tab(text: 'Work'),
-            Tab(text: 'Groups'),
+    return DefaultTabController(
+        length: 4,
+        child:  Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.deepPurple[400],
+          title: Text('ChatMe',style: TextStyle(letterSpacing: 1),),
+          actions: [
+            IconButton(onPressed: () {},
+              icon: Icon(Icons.search),),
+            ],
+          bottom: TabBar(
+            controller: tabBarController,
+            tabs: [
+              Tab(text: 'Allchats'),
+              Tab(text: 'Personal'),
+              Tab(text: 'Work'),
+              Tab(text: 'Groups'),
 
           ],),
       ),
-      body: Column(
-        children: [
-          Expanded(child: RecentList()),
+      // body: Column(
+      //   children: [
+      //     Expanded(child: RecentList()),
+      //   ],
+      // ),
+        body: TabBarView(
+          controller: tabBarController,
+          children:  [
+            RecentList(),
+            Center(child: Text('Personal Chats')),
+            Center(child: Text('work Chats')),
+            Center(child: Text('groups')),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => ContactPage() ));
-        },
-        child: Icon(Icons.chat),
-        backgroundColor: Colors.deepPurple[400],
-
-
+          },
+          child: Icon(Icons.chat),
+          backgroundColor: Colors.deepPurple[400],
       ),
+    )
     );
   }
 }

@@ -3,10 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:messaging_app/addcontact.dart';
 import 'package:messaging_app/contact_profile.dart';
+import 'package:messaging_app/messaging_page.dart';
+
 
 final user = FirebaseAuth.instance.currentUser!;
+class ContactPage extends StatefulWidget {
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
 
-class ContactPage extends StatelessWidget {
+class _ContactPageState extends State<ContactPage> {
+  User user = FirebaseAuth.instance.currentUser!;
+  void refresh() async{
+    await user.reload();
+  user = FirebaseAuth.instance.currentUser!;
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,7 +122,7 @@ class ContactList extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ContactProfilePage(
+                    builder: (context) => MessagePage(
                       contact: contacts[index],
                     ),
                   ),

@@ -36,6 +36,17 @@ class _MessagePageState extends State<MessagePage> {
       appBar: AppBar(
         title: Text('${contact.name}'),
         backgroundColor: Colors.deepPurple[400],
+          actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(
+                  builder: (context) =>  ContactProfilePage(contact: contact),)
+                );
+              },
+            icon: const Icon(Icons.account_circle)
+          ),
+          ]
       ),
       body: SingleChildScrollView(
         child: Column(

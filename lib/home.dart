@@ -10,9 +10,7 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState(
-
-  );
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -38,88 +36,26 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble_rounded),
             label: 'Chat',
-            //backgroundColor: Colors.deepPurple[400],
-    ),
+          ),
 
           BottomNavigationBarItem(
             icon: Icon(Icons.access_time_filled_rounded),
             label: 'Status',
-            //backgroundColor: Colors.deepPurpleAccent,
           ),
-      BottomNavigationBarItem(
-        icon: Icon(Icons.add_call),
-        label: 'Call',
-        //backgroundColor: Colors.deepPurple[400],
-      ),
-       BottomNavigationBarItem(
-        icon: Icon(Icons.account_circle),
-         //backgroundColor: Colors.deepPurpleAccent,
-         label: 'Profile',
-       ),
-
-
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_call),
+            label: 'Call',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Profile',
+          ),
         ],
         onTap: (index) {
-        setState(() {
-    _currentIndex = index;
-
-
-});
+        setState(() { _currentIndex = index; });
         },
       ) ,
       ),
-
     );
-
   }
-        // leading: IconButton(
-        //     onPressed: () => Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => UserProfilePage())
-        //     ),
-           // icon: Icon(Icons.account_circle_rounded),
-        //),
-
-        // elevation: 1,
-        // centerTitle: true,
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {
-        //         final provider = Provider.of<GoogleSignInProvider>(context, listen:false);
-        //         provider.logout();
-        //       },
-        //       icon: Icon(Icons.logout)
-
-        // bottom: const TabBar(
-        //   indicatorWeight: 3,
-        //   labelStyle: TextStyle(fontWeight: FontWeight.bold),
-        //   splashFactory: NoSplash.splashFactory,
-        //   tabs: [
-        //   Tab(icon: Icon(Icons.chat_bubble_rounded),),
-        //   Tab(icon: Icon(Icons.lock_clock),),
-        //   Tab(icon: Icon(Icons.call_sharp),),
-        //       IconButton(
-        //         onPressed: () => Navigator.push(
-        //             context,
-        //             MaterialPageRoute(builder: (context) => UserProfilePage())
-        //         ),
-        //       ),
-        //       icon: Icon(Icons.account_circle_sharp),),
-        //
-        // ],
-        // ),
-     // ),
-     //
-     //  backgroundColor: Colors.black87,
-     //
-     //  body: TabBarView(children: [
-     //    ChatHomePage(),
-     //    StatusHomePage(),
-     //    CallHomePage(),
-     //  ],
-
-      //),
-   // ),
-
-  //}
 }
