@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:messaging_app/contact_page.dart';
-
-import 'contact_profile.dart';
-import 'messaging_page.dart';
+import 'package:messaging_app/contacts/contact_page.dart';
+import 'package:messaging_app/contacts/contact_profile.dart';
+import 'package:messaging_app/messaging_page.dart';
 
 class ChatHomePage extends StatefulWidget {
   const ChatHomePage({super.key});
@@ -47,12 +46,7 @@ class _ChatHomePageState extends State<ChatHomePage> with WidgetsBindingObserver
               Tab(text: 'Groups'),
 
           ],),
-      ),
-      // body: Column(
-      //   children: [
-      //     Expanded(child: RecentList()),
-      //   ],
-      // ),
+        ),
         body: TabBarView(
           controller: tabBarController,
           children:  [

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:messaging_app/user_profile.dart';
-import 'package:provider/provider.dart';
-import 'package:messaging_app/google_login.dart';
-import 'package:messaging_app/chat_home.dart';
-import 'package:messaging_app/status_home.dart';
-import 'package:messaging_app/calls_home.dart';
+import 'package:messaging_app/home/status_home.dart';
+import 'package:messaging_app/home/user_profile.dart';
+import 'package:messaging_app/home/calls_home.dart';
+import 'package:messaging_app/home/chat_home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

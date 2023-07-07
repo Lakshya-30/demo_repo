@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:messaging_app/settings.dart';
 import 'package:messaging_app/user_model.dart';
 
 class ContactProfilePage extends StatelessWidget {

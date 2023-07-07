@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:messaging_app/addcontact.dart';
-import 'package:messaging_app/contact_profile.dart';
+import 'package:messaging_app/contacts/addcontact.dart';
+import 'package:messaging_app/contacts/contact_profile.dart';
 import 'package:messaging_app/messaging_page.dart';
-
 
 final user = FirebaseAuth.instance.currentUser!;
 class ContactPage extends StatefulWidget {

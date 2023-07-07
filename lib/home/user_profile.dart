@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:messaging_app/settings.dart';
+import 'package:messaging_app/home/settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'edit_info.dart';
-import 'user_model.dart';
+import 'package:messaging_app/home/edit_info.dart';
+import 'package:messaging_app/user_model.dart';
 
 class UserProfilePage extends StatelessWidget {
   UserProfilePage({super.key});
