@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messaging_app/google_login.dart';
+import 'package:messaging_app/signIn/google_login.dart';
 import 'package:provider/provider.dart';
 
 class SettingsPage extends StatelessWidget {

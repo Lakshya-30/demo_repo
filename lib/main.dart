@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:messaging_app/google_login.dart';
-import 'package:messaging_app/signup.dart';
+import 'package:messaging_app/signIn/google_login.dart';
+import 'package:messaging_app/signIn/signup.dart';
+import 'package:messaging_app/home/home.dart';
 import 'package:provider/provider.dart';
-import 'home.dart';
 
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();

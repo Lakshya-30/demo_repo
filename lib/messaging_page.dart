@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'contact_profile.dart';
+import 'package:messaging_app/contacts/contact_profile.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 
 class MessagePage extends StatefulWidget {
@@ -36,6 +35,17 @@ class _MessagePageState extends State<MessagePage> {
       appBar: AppBar(
         title: Text('${contact.name}'),
         backgroundColor: Colors.deepPurple[400],
+          actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(
+                  builder: (context) =>  ContactProfilePage(contact: contact),)
+                );
+              },
+            icon: const Icon(Icons.account_circle)
+          ),
+          ]
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -150,9 +160,42 @@ class _MessagePageState extends State<MessagePage> {
                       ? CrossAxisAlignment.end
                       : CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 300,
-                      child: ListTile(
+                    InkWell(
+                      onTap: (){
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text('Delete or Edit  Message??'),
+                            content: Text('Are you sure you want to delete or edit this message?'),
+                            actions: [
+                              TextButton(
+                                child: Text('Delete'),
+                                onPressed: () async {
+                                  if(me==qs['senderMail']){
+                                  await FirebaseFirestore.instance.runTransaction((Transaction myTransaction) async {
+                                    await myTransaction.delete(qs.reference);
+                                  });}
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              TextButton(
+                                child: Text('edit'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Cancel'),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          ),
+                        );},
+                      child :SizedBox(
+                        width: 300,
+                        child: ListTile(
                         tileColor: Colors.white70,
                         shape: RoundedRectangleBorder(
                           side: const BorderSide(
@@ -190,6 +233,7 @@ class _MessagePageState extends State<MessagePage> {
                         ),
                       ),
                     ),
+                    )
                   ],
                 ),
               );
